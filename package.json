@@ -1,0 +1,52 @@
+{
+  "name": "homeassistant-smart-plug-card",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Home Assistant dashboard card for Shelly and Tasmota smart plugs: on/off, live watts, a 24-hour power graph and energy totals.",
+  "keywords": [
+    "card",
+    "dashboard",
+    "energy",
+    "home-assistant",
+    "lovelace",
+    "shelly",
+    "smart-plug",
+    "tasmota"
+  ],
+  "license": "MIT",
+  "author": "Joel Haker",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joeladam518/homeassistant-smart-plug-card.git"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "rolldown -c",
+    "watch": "rolldown -c -w",
+    "typecheck": "tsc",
+    "lint": "oxlint",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check",
+    "test": "vitest run",
+    "check": "npm run typecheck && npm run lint && npm run fmt:check && npm run build && npm run test"
+  },
+  "dependencies": {
+    "lit": "^3.3.3"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "cssnano": "^9.9.0",
+    "happy-dom": "^21.0.4",
+    "home-assistant-js-websocket": "^9.8.1",
+    "oxfmt": "^0.78.0",
+    "oxlint": "^1.93.0",
+    "postcss": "^8.5.33",
+    "postcss-nesting": "^14.0.3",
+    "rolldown": "^1.3.2",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

@@ -1,0 +1,18 @@
+name: Validate
+
+# The Home Assistant Marketplace (HACS) checks for a dashboard card repo.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  hacs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hacs/action@main
+        with:
+          category: plugin

@@ -1,0 +1,33 @@
+name: Release
+
+# Publish a GitHub release (tag v<version>) and this attaches the built card to it.
+# The Home Assistant Marketplace installs the .js file from the latest release.
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Tag matches package.json version
+        run: |
+          version="v$(node -p 'require("./package.json").version')"
+          if [ "$version" != "${{ github.event.release.tag_name }}" ]; then
+            echo "Release tag ${{ github.event.release.tag_name }} doesn't match package.json ($version)"
+            exit 1
+          fi
+      - run: npm run check
+      - name: Attach the card to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "${{ github.event.release.tag_name }}" dist/smart-plug-card.js --clobber

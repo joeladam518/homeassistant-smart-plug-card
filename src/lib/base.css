@@ -1,0 +1,13 @@
+/* Shared helper — the same file is copied into each homeassistant-* card repo. Keep the copies identical. */
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+[hidden] {
+  display: none !important;
+}
