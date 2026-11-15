@@ -1,6 +1,6 @@
 {
   "name": "homeassistant-smart-plug-card",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "private": true,
   "description": "Home Assistant dashboard card for Shelly and Tasmota smart plugs: on/off, live watts, a 24-hour power graph and energy totals.",
   "keywords": [
