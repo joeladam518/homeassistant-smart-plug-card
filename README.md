@@ -2,7 +2,7 @@
 
 A Home Assistant dashboard card for **Shelly and Tasmota smart plugs**, or any switch or light with power monitoring.
 
-<!-- TODO: screenshot (the Marketplace needs one), e.g. ![Smart Plug Card](docs/screenshot.png) -->
+![Smart Plug Card](docs/screenshot.png)
 
 - **On/off:** a toggle, and the icon is a button too. The card glows while the plug is on.
 - **Live wattage** in large text, next to a **24-hour power graph**.
