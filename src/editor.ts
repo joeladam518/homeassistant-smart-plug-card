@@ -1,7 +1,7 @@
+import type { HomeAssistant } from "@joeladam518/shared-cards/types.ts";
 import { html, LitElement, nothing } from "lit";
 
 import type { SmartPlugCardConfig } from "./card.ts";
-import type { HomeAssistant } from "./lib/types.ts";
 
 const SCHEMA = [
   { name: "entity", required: true, selector: { entity: { domain: ["switch", "light", "input_boolean"] } } },

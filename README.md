@@ -65,7 +65,7 @@ npm run fmt     # format everything
 ```
 
 - **Code:** TypeScript + [Lit](https://lit.dev) in `src/`, styles in `src/*.css` (PostCSS), built with [rolldown](https://rolldown.rs) into one file with Lit included.
-- **`src/lib/`** holds helpers shared with the other `homeassistant-*` cards. Keep the copies identical.
+- **Shared helpers** come from [`@joeladam518/shared-cards`](https://github.com/joeladam518/homeassistant-ui/tree/main/packages/shared-cards) on GitHub Packages. To install, put a token with `read:packages` in `~/.npmrc` as `//npm.pkg.github.com/:_authToken=<token>`.
 - **Testing in Home Assistant:** copy `dist/smart-plug-card.js` to `/config/www/` and bump `?v=` on the resource.
 
 **Releasing:** run `npm version <patch|minor|major>`, push with tags, then publish a GitHub release for the new `v…` tag. CI builds the card and attaches `smart-plug-card.js` to the release, which is what the Marketplace installs.

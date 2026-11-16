@@ -1,15 +1,19 @@
+import { entityAreaName, numericState, siblingSensors } from "@joeladam518/shared-cards/devices.ts";
+import { fireMoreInfo } from "@joeladam518/shared-cards/more-info.ts";
+import { areaPath, linePath, type Point, timeScale } from "@joeladam518/shared-cards/sparkline.ts";
+import { fetchStats, rowTime } from "@joeladam518/shared-cards/statistics.ts";
+import type {
+  HomeAssistant,
+  LovelaceCardConfig,
+  LovelaceGridOptions,
+} from "@joeladam518/shared-cards/types.ts";
 import { html, LitElement, nothing, unsafeCSS } from "lit";
 
 import { fmtCost, fmtEnergy, fmtPower, toKwh } from "./format.ts";
-import { entityAreaName, numericState, siblingSensors } from "./lib/devices.ts";
-import { fireMoreInfo } from "./lib/more-info.ts";
-import { areaPath, linePath, type Point, timeScale } from "./lib/sparkline.ts";
-import { fetchStats, rowTime } from "./lib/statistics.ts";
-import type { HomeAssistant, LovelaceCardConfig, LovelaceGridOptions } from "./lib/types.ts";
 
 import cardCss from "./card.css?inline";
-import baseCss from "./lib/base.css?inline";
-import switchCss from "./lib/switch.css?inline";
+import baseCss from "@joeladam518/shared-cards/base.css?inline";
+import switchCss from "@joeladam518/shared-cards/switch.css?inline";
 
 export interface SmartPlugCardConfig extends LovelaceCardConfig {
   /** The plug: a switch or light. */

@@ -1,6 +1,7 @@
+import { defineOnce, logVersion, registerCard } from "@joeladam518/shared-cards/register.ts";
+
 import { SmartPlugCard } from "./card.ts";
 import { SmartPlugCardEditor } from "./editor.ts";
-import { defineOnce, logVersion, registerCard } from "./lib/register.ts";
 
 defineOnce("smart-plug-card", SmartPlugCard);
 defineOnce("smart-plug-card-editor", SmartPlugCardEditor);

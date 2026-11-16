@@ -1,7 +1,7 @@
+import type { HomeAssistant } from "@joeladam518/shared-cards/types.ts";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 
 import type { SmartPlugCard } from "./card.ts";
-import type { HomeAssistant } from "./lib/types.ts";
 
 beforeAll(async () => {
   await import("./index.ts");

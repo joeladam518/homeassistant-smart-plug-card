@@ -9,16 +9,20 @@ import postcssConfig from "../postcss.config.js";
 const SUFFIX = "?inline";
 
 /**
- * `import css from "./card.css?inline"` → the file run through PostCSS, as a string.
- * Same import style as Vite, so the tests (vitest) and the build read CSS the same way.
+ * `import css from "./card.css?inline"` (or from a package, e.g. `@joeladam518/shared-cards/…`) → the file run
+ * through PostCSS, as a string. Same import style as Vite, so vitest and the build read CSS the same way.
  */
 export function cssInline(): Plugin {
   const processor = postcss(postcssConfig.plugins);
   return {
     name: "css-inline",
-    resolveId(source, importer) {
+    async resolveId(source, importer) {
       if (!source.endsWith(`.css${SUFFIX}`) || !importer) return null;
-      return resolve(dirname(importer), source.slice(0, -SUFFIX.length)) + SUFFIX;
+      const bare = source.slice(0, -SUFFIX.length);
+      if (bare.startsWith(".")) return resolve(dirname(importer), bare) + SUFFIX;
+      // a package path, e.g. @joeladam518/shared-cards/switch.css
+      const found = await this.resolve(bare, importer, { skipSelf: true });
+      return found ? found.id + SUFFIX : null;
     },
     async load(id) {
       if (!id.endsWith(`.css${SUFFIX}`)) return null;
