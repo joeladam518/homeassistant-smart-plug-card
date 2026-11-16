@@ -1,9 +1,11 @@
+import { act, flush, stubHaElements } from "@joeladam518/shared-cards/testing.ts";
 import type { HomeAssistant } from "@joeladam518/shared-cards/types.ts";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 
-import type { SmartPlugCard } from "./card.ts";
+import type { SmartPlugCardElement as SmartPlugCard } from "./card.tsx";
 
 beforeAll(async () => {
+  stubHaElements();
   await import("./index.ts");
 });
 
@@ -59,12 +61,14 @@ function fakeHass(plugState = "on", watts = "57.4"): HomeAssistant {
 
 async function mount(config: Record<string, unknown>, hass = fakeHass()): Promise<SmartPlugCard> {
   const card = document.createElement("smart-plug-card") as SmartPlugCard;
-  card.setConfig({ type: "custom:smart-plug-card", entity: "switch.lamp", ...config });
-  card.hass = hass;
-  document.body.append(card);
+  await act(() => {
+    card.setConfig({ type: "custom:smart-plug-card", entity: "switch.lamp", ...config });
+    card.hass = hass;
+    document.body.append(card);
+  });
   // Wait for the energy totals (fetched over the fake websocket) to render.
   await vi.waitFor(() => expect(card.shadowRoot?.querySelector(".v")?.textContent).toMatch(/\d/));
-  await card.updateComplete;
+  await flush();
   return card;
 }
 
@@ -102,7 +106,7 @@ describe("smart-plug-card", () => {
     const hass = fakeHass("off");
     const card = await mount({}, hass);
     card.shadowRoot!.querySelector<HTMLButtonElement>(".switch")!.click();
-    await card.updateComplete;
+    await flush();
     expect(hass.callService).toHaveBeenCalledWith("homeassistant", "toggle", { entity_id: "switch.lamp" });
     expect(card.shadowRoot!.querySelector(".switch")!.classList.contains("on")).toBe(true);
   });
@@ -117,10 +121,12 @@ describe("smart-plug-card", () => {
 
   it("says when the entity doesn't exist", async () => {
     const card = document.createElement("smart-plug-card") as SmartPlugCard;
-    card.setConfig({ type: "custom:smart-plug-card", entity: "switch.missing" });
-    card.hass = fakeHass();
-    document.body.append(card);
-    await card.updateComplete;
+    await act(() => {
+      card.setConfig({ type: "custom:smart-plug-card", entity: "switch.missing" });
+      card.hass = fakeHass();
+      document.body.append(card);
+    });
+    await flush();
     expect(text(card, ".sub")).toBe("Entity not found");
     expect(card.shadowRoot!.querySelector("ha-card")!.className).toBe("unavailable");
   });
