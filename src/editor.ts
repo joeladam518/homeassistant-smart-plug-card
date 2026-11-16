@@ -45,7 +45,9 @@ export class SmartPlugCardEditor extends LitElement {
   }
 
   override render(): unknown {
-    if (!this.hass || !this._config) return nothing;
+    if (!this.hass || !this._config) {
+      return nothing;
+    }
     return html`
       <ha-form
         .hass=${this.hass}

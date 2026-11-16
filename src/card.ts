@@ -80,7 +80,9 @@ export class SmartPlugCard extends LitElement {
 
   static getStubConfig(hass: HomeAssistant): Partial<SmartPlugCardConfig> {
     const plug = Object.keys(hass?.states || {}).find((id) => {
-      if (!/^(switch|light)\./.test(id)) return false;
+      if (!/^(switch|light)\./.test(id)) {
+        return false;
+      }
       const device = hass.entities?.[id]?.device_id;
       return (
         !!device &&
@@ -97,7 +99,9 @@ export class SmartPlugCard extends LitElement {
   }
 
   setConfig(config: SmartPlugCardConfig): void {
-    if (!config?.entity) throw new Error("Set 'entity' to a switch or light");
+    if (!config?.entity) {
+      throw new Error("Set 'entity' to a switch or light");
+    }
     this._config = { ...config };
     this._resolvedFor = undefined;
     this._totals = {};
@@ -115,19 +119,27 @@ export class SmartPlugCard extends LitElement {
   set hass(hass: HomeAssistant) {
     const prev = this._hass;
     this._hass = hass;
-    if (!this._config) return;
+    if (!this._config) {
+      return;
+    }
     this._resolve();
     const ids = [this._config.entity, this._power, this._energy];
-    if (!prev || ids.some((id) => id && prev.states[id] !== hass.states[id])) this.requestUpdate();
-    if (!prev) void this._refresh(true);
-    else if (this._energy && prev.states[this._energy] !== hass.states[this._energy])
+    if (!prev || ids.some((id) => id && prev.states[id] !== hass.states[id])) {
+      this.requestUpdate();
+    }
+    if (!prev) {
+      void this._refresh(true);
+    } else if (this._energy && prev.states[this._energy] !== hass.states[this._energy]) {
       void this._refresh(false);
+    }
   }
 
   override connectedCallback(): void {
     super.connectedCallback();
     this._timer = setInterval(() => void this._refresh(true), REFRESH_MS);
-    if (this._hass) void this._refresh(true);
+    if (this._hass) {
+      void this._refresh(true);
+    }
   }
 
   override disconnectedCallback(): void {
@@ -149,7 +161,9 @@ export class SmartPlugCard extends LitElement {
   private _resolve(): void {
     const h = this._hass;
     const c = this._config;
-    if (!h || !c || this._resolvedFor === c.entity) return;
+    if (!h || !c || this._resolvedFor === c.entity) {
+      return;
+    }
     const sensors = siblingSensors(h, c.entity);
     const attr = (id: string, key: string) => h.states[id]?.attributes?.[key];
     this._power = c.power || sensors.find((id) => attr(id, "device_class") === "power") || null;
@@ -168,9 +182,13 @@ export class SmartPlugCard extends LitElement {
 
   private async _refresh(force: boolean): Promise<void> {
     const h = this._hass;
-    if (!h || !this._config || !this.isConnected) return;
+    if (!h || !this._config || !this.isConnected) {
+      return;
+    }
     const now = Date.now();
-    if (!force && now - this._lastFetch < MIN_REFRESH_GAP_MS) return;
+    if (!force && now - this._lastFetch < MIN_REFRESH_GAP_MS) {
+      return;
+    }
     this._lastFetch = now;
     this._resolve();
     const jobs: Promise<void>[] = [];
@@ -225,7 +243,9 @@ export class SmartPlugCard extends LitElement {
     e.stopPropagation();
     const h = this._hass;
     const st = this._config && h?.states[this._config.entity];
-    if (!h || !st || st.state === "unavailable") return;
+    if (!h || !st || st.state === "unavailable") {
+      return;
+    }
     this._optimistic = st.state === "on" ? "off" : "on";
     void h.callService("homeassistant", "toggle", { entity_id: st.entity_id }).finally(() =>
       setTimeout(() => {
@@ -235,7 +255,9 @@ export class SmartPlugCard extends LitElement {
   }
 
   private _onKey(e: KeyboardEvent): void {
-    if (e.key === "Enter") (e.currentTarget as HTMLElement).click();
+    if (e.key === "Enter") {
+      (e.currentTarget as HTMLElement).click();
+    }
   }
 
   /* ---------------------------------------------------------- render */
@@ -243,7 +265,9 @@ export class SmartPlugCard extends LitElement {
   private _renderIcon(): unknown {
     const h = this._hass!;
     const c = this._config!;
-    if (c.icon) return html`<ha-icon .icon=${c.icon}></ha-icon>`;
+    if (c.icon) {
+      return html`<ha-icon .icon=${c.icon}></ha-icon>`;
+    }
     const st = h.states[c.entity];
     const stateObj = st && this._optimistic ? { ...st, state: this._optimistic } : st;
     // Home Assistant's own icon for this entity, which follows on/off.
@@ -252,8 +276,12 @@ export class SmartPlugCard extends LitElement {
 
   private _sparkPaths(watts: number | null): { line: string; area: string } {
     const pts = [...this._spark];
-    if (watts != null) pts.push({ t: Date.now(), v: watts });
-    if (pts.length < 2) return { line: "M0,38L200,38", area: "" };
+    if (watts != null) {
+      pts.push({ t: Date.now(), v: watts });
+    }
+    if (pts.length < 2) {
+      return { line: "M0,38L200,38", area: "" };
+    }
     const now = Date.now();
     const x = timeScale(now - DAY_MS, now, SPARK_W);
     const max = Math.max(5, ...pts.map((p) => p.v));
@@ -265,7 +293,9 @@ export class SmartPlugCard extends LitElement {
   override render(): unknown {
     const h = this._hass;
     const c = this._config;
-    if (!h || !c) return nothing;
+    if (!h || !c) {
+      return nothing;
+    }
     const st = h.states[c.entity];
     const state = this._optimistic || st?.state;
     const on = state === "on";
