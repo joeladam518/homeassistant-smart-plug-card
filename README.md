@@ -16,6 +16,15 @@ A Home Assistant dashboard card for **Shelly and Tasmota smart plugs**, or any s
 
 ### Home Assistant Marketplace
 
+[![Open this repository in the Marketplace on your Home Assistant.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=joeladam518&repository=homeassistant-smart-plug-card&category=plugin)
+
+1. Open **Marketplace** and search for **Smart Plug Card**.
+2. Install it, then reload the browser.
+
+#### Custom repository
+
+If the card doesn't show up in the search, add it as a custom repository:
+
 1. Open **Marketplace** and choose **⋮ → Custom repositories**.
 2. Add `https://github.com/joeladam518/homeassistant-smart-plug-card` with the type **Dashboard**.
 3. Find **Smart Plug Card** and install it, then reload the browser.
@@ -24,7 +33,7 @@ A Home Assistant dashboard card for **Shelly and Tasmota smart plugs**, or any s
 
 1. Download `smart-plug-card.js` from the [latest release](https://github.com/joeladam518/homeassistant-smart-plug-card/releases/latest) into `/config/www/`.
 2. Go to **Settings → Dashboards → ⋮ → Resources → Add resource**:
-   - URL: `/local/smart-plug-card.js?v=2.1.0`
+   - URL: `/local/smart-plug-card.js?v=2.1.1`
    - Type: **JavaScript module**
 3. Hard-refresh the browser. In the phone app, use **Settings → Companion app → Debugging → Reset frontend cache**.
 
