@@ -74,7 +74,7 @@ npm run fmt     # format everything
 ```
 
 - **Code:** TypeScript + [Preact](https://preactjs.com) function components in `src/` (`.tsx`), styles in `src/*.css` (PostCSS), built with [rolldown](https://rolldown.rs) into one file with Preact included.
-- **Shared helpers** come from [`homeassistant-ui-shared`](https://github.com/joeladam518/homeassistant-ui-shared), installed straight from GitHub by tag. No token needed.
+- **Shared helpers** come from [`@joeladam518/homeassistant-ui-shared`](https://github.com/joeladam518/homeassistant-ui-shared) on GitHub Packages. To install, put a token with `read:packages` in `~/.npmrc` as `//npm.pkg.github.com/:_authToken=<token>`.
 - **Testing in Home Assistant:** copy `dist/smart-plug-card.js` to `/config/www/` and bump `?v=` on the resource.
 
 **Releasing:** run `npm version <patch|minor|major>`, push with tags, then publish a GitHub release for the new `v…` tag. CI builds the card and attaches `smart-plug-card.js` to the release, which is what the Marketplace installs.

@@ -9,7 +9,7 @@ import postcssConfig from "../postcss.config.js";
 const SUFFIX = "?inline";
 
 /**
- * `import css from "./card.css?inline"` (or from a package, e.g. `homeassistant-ui-shared/switch.css?inline`) → the file run
+ * `import css from "./card.css?inline"` (or from a package, e.g. `@joeladam518/homeassistant-ui-shared/switch.css?inline`) → the file run
  * through PostCSS, as a string. Same import style as Vite, so vitest and the build read CSS the same way.
  */
 export function cssInline(): Plugin {
@@ -24,7 +24,7 @@ export function cssInline(): Plugin {
       if (bare.startsWith(".")) {
         return resolve(dirname(importer), bare) + SUFFIX;
       }
-      // a package path, e.g. homeassistant-ui-shared/switch.css
+      // a package path, e.g. @joeladam518/homeassistant-ui-shared/switch.css
       const found = await this.resolve(bare, importer, { skipSelf: true });
       return found ? found.id + SUFFIX : null;
     },

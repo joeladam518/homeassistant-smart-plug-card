@@ -31,7 +31,7 @@
     "check": "npm run typecheck && npm run lint && npm run fmt:check && npm run build && npm run test"
   },
   "dependencies": {
-    "homeassistant-ui-shared": "github:joeladam518/homeassistant-ui-shared#v1.0.0",
+    "@joeladam518/homeassistant-ui-shared": "^1.0.1",
     "preact": "^11.2.0"
   },
   "devDependencies": {
