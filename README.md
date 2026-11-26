@@ -33,7 +33,7 @@ If the card doesn't show up in the search, add it as a custom repository:
 
 1. Download `smart-plug-card.js` from the [latest release](https://github.com/joeladam518/homeassistant-smart-plug-card/releases/latest) into `/config/www/`.
 2. Go to **Settings → Dashboards → ⋮ → Resources → Add resource**:
-   - URL: `/local/smart-plug-card.js?v=2.1.1`
+   - URL: `/local/smart-plug-card.js?v=2.1.2`
    - Type: **JavaScript module**
 3. Hard-refresh the browser. In the phone app, use **Settings → Companion app → Debugging → Reset frontend cache**.
 
