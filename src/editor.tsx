@@ -1,4 +1,4 @@
-import { createEditorElement, type EditorProps, haProps } from "@joeladam518/shared-cards/card-element.tsx";
+import { createEditorElement, type EditorProps, haProps } from "homeassistant-ui-shared";
 import type { FunctionComponent as FC } from "preact";
 
 import type { SmartPlugCardConfig } from "./card.tsx";

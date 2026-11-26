@@ -1,5 +1,5 @@
-import { act, flush, stubHaElements } from "@joeladam518/shared-cards/testing.ts";
-import type { HomeAssistant } from "@joeladam518/shared-cards/types.ts";
+import type { HomeAssistant } from "homeassistant-ui-shared";
+import { act, flush, stubHaElements } from "homeassistant-ui-shared/testing";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 
 import type { SmartPlugCardElement as SmartPlugCard } from "./card.tsx";

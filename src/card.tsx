@@ -1,18 +1,29 @@
-import { type CardProps, createCardElement, haProps } from "@joeladam518/shared-cards/card-element.tsx";
-import { entityAreaName, numericState, siblingSensors } from "@joeladam518/shared-cards/devices.ts";
-import { useInterval } from "@joeladam518/shared-cards/hooks.ts";
-import { fireMoreInfo } from "@joeladam518/shared-cards/more-info.ts";
-import { areaPath, linePath, type Point, timeScale } from "@joeladam518/shared-cards/sparkline.ts";
-import { fetchStats, rowTime } from "@joeladam518/shared-cards/statistics.ts";
-import type { HomeAssistant, LovelaceCardConfig } from "@joeladam518/shared-cards/types.ts";
+import {
+  areaPath,
+  baseCss,
+  type CardProps,
+  createCardElement,
+  entityAreaName,
+  fetchStats,
+  fireMoreInfo,
+  haProps,
+  type HomeAssistant,
+  linePath,
+  type LovelaceCardConfig,
+  numericState,
+  type Point,
+  rowTime,
+  siblingSensors,
+  switchCss,
+  timeScale,
+  useInterval,
+} from "homeassistant-ui-shared";
 import type { FunctionComponent as FC } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
 
 import { fmtCost, fmtEnergy, fmtPower, toKwh } from "./format.ts";
 
 import cardCss from "./card.css?inline";
-import baseCss from "@joeladam518/shared-cards/base.css?inline";
-import switchCss from "@joeladam518/shared-cards/switch.css?inline";
 
 export interface SmartPlugCardConfig extends LovelaceCardConfig {
   /** The plug: a switch or light. */

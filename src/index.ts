@@ -1,4 +1,4 @@
-import { defineOnce, logVersion, registerCard } from "@joeladam518/shared-cards/register.ts";
+import { defineOnce, logVersion, registerCard } from "homeassistant-ui-shared";
 
 import { SmartPlugCardElement } from "./card.tsx";
 import { SmartPlugCardEditorElement } from "./editor.tsx";
